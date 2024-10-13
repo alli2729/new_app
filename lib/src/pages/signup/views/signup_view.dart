@@ -15,35 +15,40 @@ class SignupView extends GetView<SignupController> {
 
   Widget _body() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _appBar(),
-          const SizedBox(height: 12),
-          _signupText(),
-          const Spacer(),
-          _emailText(),
-          const SizedBox(height: 12),
-          _emailField(),
-          const SizedBox(height: 18),
-          _phoneText(),
-          const SizedBox(height: 12),
-          _phoneRow(),
-          const SizedBox(height: 12),
-          _passwordText(),
-          const SizedBox(height: 12),
-          _passwordField(),
-          const SizedBox(height: 20),
-          Obx(() => PasswordValid(number: controller.value.value)),
-          const SizedBox(height: 20),
-          _agreement(),
-          const SizedBox(height: 24),
-          _signinButton(),
-          const Spacer(),
-          _haveAccount(),
-          const SizedBox(height: 12),
-        ],
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24),
+      child: Form(
+        key: controller.formKey,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _appBar(),
+              const SizedBox(height: 12),
+              _signupText(),
+              const SizedBox(height: 12),
+              _emailText(),
+              const SizedBox(height: 12),
+              _emailField(),
+              const SizedBox(height: 18),
+              _phoneText(),
+              const SizedBox(height: 12),
+              _phoneRow(),
+              const SizedBox(height: 12),
+              _passwordText(),
+              const SizedBox(height: 12),
+              _passwordField(),
+              const SizedBox(height: 20),
+              Obx(() => PasswordValid(number: controller.value.value)),
+              const SizedBox(height: 20),
+              _agreement(),
+              const SizedBox(height: 24),
+              _signinButton(),
+              const SizedBox(height: 24),
+              _haveAccount(),
+              const SizedBox(height: 12),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -125,12 +130,12 @@ class SignupView extends GetView<SignupController> {
   Widget _passwordField() {
     return Obx(
       () => TextFormField(
+        obscuringCharacter: '*',
         onChanged: controller.passValue,
         obscureText: controller.isObscure.value,
         controller: controller.passwordController,
         keyboardType: TextInputType.visiblePassword,
         validator: controller.passwordValidor,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: InputDecoration(
           prefixText: '   ',
           suffixIcon: GestureDetector(
@@ -177,9 +182,10 @@ class SignupView extends GetView<SignupController> {
           child: TextFormField(
             maxLength: 10,
             controller: controller.phoneController,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: controller.phoneValidator,
             keyboardType: TextInputType.phone,
             decoration: InputDecoration(
+              suffixIcon: const Icon(Icons.phone, color: Colors.grey),
               counterText: '',
               hintText: '1234567890',
               hintStyle: const TextStyle(color: Colors.grey),
@@ -204,9 +210,9 @@ class SignupView extends GetView<SignupController> {
     return TextFormField(
       controller: controller.emailController,
       validator: controller.emailValidor,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
+        suffixIcon: const Icon(Icons.email_outlined, color: Colors.grey),
         prefixText: '   ',
         hintText: 'abc@email.com',
         hintStyle: const TextStyle(color: Colors.grey),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:new_app/src/infrastructure/routes/route_names.dart';
+import '../../../infrastructure/common/database.dart';
+import '../../../infrastructure/routes/route_names.dart';
 
 class LoginController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -27,9 +28,7 @@ class LoginController extends GetxController {
     return null;
   }
 
-  void toggle() {
-    isObscure.toggle();
-  }
+  void toggle() => isObscure.toggle();
 
   void rememberToggle(bool? value) {
     value = isRemember.value;
@@ -40,12 +39,35 @@ class LoginController extends GetxController {
     Get.toNamed(RouteNames.forgot);
   }
 
-  void onSignup() {
-    Get.toNamed(RouteNames.signup);
+  void onSignup() async {
+    final result = await Get.toNamed(RouteNames.signup);
+    if (result != null) {
+      emailController.text = result[0];
+      passwordController.text = result[1];
+    }
   }
 
   void onLogin() {
-    if (formKey.currentState?.validate() ?? false) {}
+    if (formKey.currentState?.validate() ?? false) {
+      bool isfound = Database.accounts.any(
+        (acc) =>
+            (acc.email == emailController.text) &&
+            (acc.password == passwordController.text),
+      );
+
+      (isfound)
+          ? Get.offNamed(RouteNames.home)
+          : Get.showSnackbar(
+              GetSnackBar(
+                margin: const EdgeInsets.all(12),
+                borderRadius: 8,
+                duration: const Duration(seconds: 2),
+                isDismissible: true,
+                message: 'User not found !',
+                backgroundColor: Colors.red.shade200,
+              ),
+            );
+    }
   }
 
   // other ways to login

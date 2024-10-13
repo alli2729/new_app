@@ -15,7 +15,7 @@ class AccountsView extends GetView<AccountsController> {
 
   Widget _body() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24),
       child: Column(
         children: [
           _appBar(),

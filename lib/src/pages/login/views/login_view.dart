@@ -18,32 +18,34 @@ class LoginView extends GetView<LoginController> {
     return Form(
       key: controller.formKey,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _appBar(),
-            const SizedBox(height: 12),
-            _welcomeText(),
-            const Spacer(),
-            _emailText(),
-            const SizedBox(height: 12),
-            _emailField(),
-            const SizedBox(height: 18),
-            _passwordText(),
-            const SizedBox(height: 12),
-            _passwordField(),
-            const SizedBox(height: 12),
-            _rememberAndForgot(),
-            const SizedBox(height: 36),
-            _loginButton(),
-            const SizedBox(height: 12),
-            _orText(),
-            const SizedBox(height: 12),
-            _otherRow(),
-            const Spacer(),
-            _noAccount(),
-          ],
+        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _appBar(),
+              const SizedBox(height: 12),
+              _welcomeText(),
+              const SizedBox(height: 24),
+              _emailText(),
+              const SizedBox(height: 12),
+              _emailField(),
+              const SizedBox(height: 18),
+              _passwordText(),
+              const SizedBox(height: 12),
+              _passwordField(),
+              const SizedBox(height: 12),
+              _rememberAndForgot(),
+              const SizedBox(height: 36),
+              _loginButton(),
+              const SizedBox(height: 12),
+              _orText(),
+              const SizedBox(height: 12),
+              _otherRow(),
+              const SizedBox(height: 24),
+              _noAccount(),
+            ],
+          ),
         ),
       ),
     );
@@ -224,10 +226,10 @@ class LoginView extends GetView<LoginController> {
   Widget _passwordField() {
     return Obx(
       () => TextFormField(
+        obscuringCharacter: '*',
         obscureText: controller.isObscure.value,
         controller: controller.passwordController,
         validator: controller.passwordValidor,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
         keyboardType: TextInputType.visiblePassword,
         decoration: InputDecoration(
           prefixText: '   ',
@@ -258,9 +260,9 @@ class LoginView extends GetView<LoginController> {
     return TextFormField(
       controller: controller.emailController,
       validator: controller.emailValidor,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
+        suffixIcon: const Icon(Icons.email_outlined, color: Colors.grey),
         prefixText: '   ',
         hintText: 'abc@email.com',
         hintStyle: const TextStyle(color: Colors.grey),

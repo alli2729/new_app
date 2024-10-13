@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../infrastructure/common/models/account.dart';
 import '../../../infrastructure/common/database.dart';
 
 class SignupController extends GetxController {
@@ -81,13 +82,65 @@ class SignupController extends GetxController {
     return null;
   }
 
+  String? phoneValidator(String? input) {
+    if (input != null) {
+      if (input.length < 10) {
+        return 'should be 10 chars';
+      }
+    }
+    return null;
+  }
+
   void onTerms() {}
 
-  void onSignin() {}
+  void onSignin() {
+    if (formKey.currentState?.validate() ?? false) {
+      if (checkBoxValue.value == false) {
+        Get.showSnackbar(
+          GetSnackBar(
+            margin: const EdgeInsets.all(12),
+            borderRadius: 8,
+            duration: const Duration(seconds: 5),
+            isDismissible: true,
+            message: 'please agree to Terms and Privacy !',
+            backgroundColor: Colors.red.shade200,
+          ),
+        );
+        return;
+      }
 
-  void onLogin() {
-    Get.back();
+      if (Database.accounts.any(
+        (acc) =>
+            (acc.email == emailController.text) ||
+            (acc.number == phoneController.text),
+      )) {
+        Get.showSnackbar(
+          GetSnackBar(
+            margin: const EdgeInsets.all(12),
+            borderRadius: 8,
+            duration: const Duration(seconds: 5),
+            isDismissible: true,
+            message: 'this email or phone is already signed !',
+            backgroundColor: Colors.red.shade200,
+          ),
+        );
+      } else {
+        Database.accounts.add(
+          Account(
+              name: 'name',
+              email: emailController.text,
+              imageUrl: '',
+              messeges: [],
+              number: phoneController.text,
+              password: passwordController.text),
+        );
+        Get.back<List<String>>(
+            result: [emailController.text, passwordController.text]);
+      }
+    }
   }
+
+  void onLogin() => Get.back();
 
   @override
   void onInit() {

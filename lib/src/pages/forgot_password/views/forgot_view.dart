@@ -14,25 +14,27 @@ class ForgotView extends GetView<ForgotController> {
 
   Widget _body() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24),
       child: Form(
         key: controller.formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _appBar(),
-            const SizedBox(height: 12),
-            _resetText(),
-            const Spacer(),
-            _emailText(),
-            const SizedBox(height: 12),
-            _emailField(),
-            const SizedBox(height: 24),
-            _forgetButton(),
-            const Spacer(),
-            _phoneNumber(),
-            const SizedBox(height: 24),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _appBar(),
+              const SizedBox(height: 12),
+              _resetText(),
+              const SizedBox(height: 64),
+              _emailText(),
+              const SizedBox(height: 12),
+              _emailField(),
+              const SizedBox(height: 24),
+              _forgetButton(),
+              const SizedBox(height: 48),
+              _phoneNumber(),
+              const SizedBox(height: 24),
+            ],
+          ),
         ),
       ),
     );

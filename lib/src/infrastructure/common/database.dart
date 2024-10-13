@@ -13,22 +13,9 @@ class Database {
       name: 'Ali Karimi',
       email: 'a.karimi2729@gmail.com',
       number: '09170502729',
+      password: 'H.k.g.97311379',
       imageUrl: '',
       messeges: [],
-    ),
-    Account(
-      name: 'Sina Rezaei',
-      email: 'sinarezaei@gmail.com',
-      number: '09010816961',
-      imageUrl: '',
-      messeges: ['hello', 'sup dude'],
-    ),
-    Account(
-      name: 'Mmd Karimi',
-      email: 'mmdkarimi@gmail.com',
-      number: '09383529714',
-      imageUrl: '',
-      messeges: ['hello', 'sup dude', 'bro', 'heyyyy'],
     ),
   ];
 }
