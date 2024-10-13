@@ -5,6 +5,5 @@ class ForgotBindings extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => ForgotController());
-    // TODO: implement dependencies
   }
 }

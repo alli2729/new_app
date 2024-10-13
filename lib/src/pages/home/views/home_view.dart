@@ -20,5 +20,5 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  Widget _body() => Column();
+  Widget _body() => const Column();
 }
